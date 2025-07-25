@@ -1,144 +1,105 @@
-
 import React, { useState } from "react";
-import * as xml2js from "xml2js";
 
 export default function DeviceTreeUploader() {
   const [devices, setDevices] = useState([]);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [parsingProgress, setParsingProgress] = useState(0);
-  const [parsing, setParsing] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleFileUpload = (event) => {
+  const handleFileUpload = async (event) => {
+    setError("");
+    setUploadProgress(100);
+    setParsingProgress(0);
+    setDevices([]);
+
     const file = event.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        setParsingProgress(10);
+        const text = e.target.result;
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(text, "application/xml");
 
-    reader.onprogress = (e) => {
-      if (e.lengthComputable) {
-        const percent = Math.round((e.loaded / e.total) * 100);
-        setUploadProgress(percent);
+        const project = xmlDoc.getElementsByTagName("project")[0];
+        const systemItems = project?.getElementsByTagName("systemitems")[0];
+        const items = systemItems?.getElementsByTagName("item");
+
+        if (!items) throw new Error("No items found in XML");
+
+        const parsed = [];
+        let currentFloor = "", currentRoom = "";
+
+        const traverse = (elements) => {
+          for (let item of elements) {
+            const type = item.querySelector("type")?.textContent;
+            const name = item.querySelector("name")?.textContent;
+
+            if (type === "4") currentFloor = name;
+            else if (type === "8") currentRoom = name;
+
+            const config = item.querySelector("config_data_file")?.textContent;
+            if (config) {
+              parsed.push({
+                floor: currentFloor,
+                room: currentRoom,
+                name,
+                manufacturer: "Unknown",
+                model: config
+              });
+            }
+
+            const subitems = item.querySelector("subitems");
+            if (subitems) {
+              traverse(subitems.getElementsByTagName("item"));
+            }
+          }
+        };
+
+        traverse(items);
+        setParsingProgress(100);
+        setDevices(parsed);
+      } catch (err) {
+        setParsingProgress(0);
+        console.error("Parsing error:", err);
+        setError("Failed to parse XML: " + err.message);
       }
     };
 
-    reader.onloadstart = () => {
-      setUploadProgress(0);
+    reader.onerror = () => {
+      setError("Error reading file.");
       setParsingProgress(0);
-    };
-
-    reader.onloadend = () => {
-      setUploadProgress(100);
-    };
-
-    reader.onload = async (e) => {
-      setParsing(true);
-      const xml = e.target.result;
-      const parser = new xml2js.Parser();
-      const result = await parser.parseStringPromise(xml);
-
-      // simulate parsing delay
-      let progress = 0;
-      const interval = setInterval(() => {
-        progress += 10;
-        if (progress >= 100) {
-          clearInterval(interval);
-          setParsingProgress(100);
-          setParsing(false);
-        } else {
-          setParsingProgress(progress);
-        }
-      }, 30);
-
-      const parsedDevices = extractDevicesFromXML(result);
-      setDevices(parsedDevices);
     };
 
     reader.readAsText(file);
   };
 
-  const extractDevicesFromXML = (xml) => {
-    const output = [];
-
-    const traverse = (items, floor = "", room = "") => {
-      if (!Array.isArray(items)) return;
-
-      items.forEach((item) => {
-        const type = item.type?.[0];
-        const name = item.name?.[0];
-
-        if (type === "4") floor = name;
-        else if (type === "8") room = name;
-
-        const config = item?.itemdata?.[0]?.config_data_file?.[0];
-        if (config) {
-          output.push({
-            floor,
-            room,
-            name,
-            manufacturer: "Unknown",
-            model: config
-          });
-        }
-
-        if (item.subitems?.[0]?.item) {
-          traverse(item.subitems[0].item, floor, room);
-        }
-      });
-    };
-
-    const systemItems = xml?.project?.systemitems?.[0]?.item || [];
-    systemItems.forEach((topItem) => {
-      traverse(topItem?.subitems?.[0]?.item);
-    });
-
-    return output;
-  };
-
   const exportToCSV = () => {
     const header = ["Floor", "Room", "Device Name", "Manufacturer", "Model"];
     const rows = devices.map(d => [d.floor, d.room, d.name, d.manufacturer, d.model]);
-    const csv = [header, ...rows]
-      .map(row => row.map(val => `"${(val || "").replace(/"/g, '""')}"`).join(","))
-      .join("\n");
+    const csv = [header, ...rows].map(r => r.map(v => `"${(v || "").replace(/"/g, '""')}"`).join(",")).join("\n");
 
     const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
+    a.href = url;
     a.download = "devices.csv";
     a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-4">Smart Spaces Group Care Plan Parser</h1>
-      <h2 className="text-2xl font-bold mb-4">Upload Smart Home Project XML</h2>
       <input type="file" accept=".xml" onChange={handleFileUpload} className="mb-4" />
       <div className="mb-2">Upload Progress: {uploadProgress}%</div>
-      <div className="w-full bg-gray-200 h-2 rounded mb-4">
-        <div
-          className="bg-blue-500 h-2 rounded"
-          style={{ width: `${uploadProgress}%` }}
-        ></div>
-      </div>
-      {parsing && (
-        <>
-          <div className="mb-2">Parsing Progress: {parsingProgress}%</div>
-          <div className="w-full bg-gray-200 h-2 rounded mb-4">
-            <div
-              className="bg-green-500 h-2 rounded"
-              style={{ width: `${parsingProgress}%` }}
-            ></div>
-          </div>
-        </>
-      )}
+      <div className="mb-4">Parsing Progress: {parsingProgress}%</div>
+      {error && <div className="text-red-500 mb-4">{error}</div>}
       {devices.length > 0 && (
         <>
-          <button
-            className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            onClick={exportToCSV}
-          >
-            Export CSV
-          </button>
+          <button onClick={exportToCSV} className="mb-4 px-4 py-2 bg-blue-500 text-white rounded">Export to CSV</button>
           <table className="min-w-full border">
             <thead>
               <tr className="bg-gray-100">
