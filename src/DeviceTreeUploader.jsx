@@ -1,6 +1,5 @@
 
 import React, { useState } from "react";
-import { XMLParser } from "fast-xml-parser";
 
 export default function DeviceTreeUploader() {
   const [devices, setDevices] = useState([]);
@@ -28,6 +27,7 @@ export default function DeviceTreeUploader() {
       setUploadProgress(100);
       try {
         setParsingProgress(10);
+        const { XMLParser } = await import("fast-xml-parser");
         const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_" });
         const result = parser.parse(e.target.result);
         setParsingProgress(50);
