@@ -44,36 +44,61 @@ export default function DeviceTreeUploader() {
     reader.readAsText(file);
   };
 
+  
   const extractDevicesFromXML = (xml) => {
     const output = [];
+
     const traverse = (items, floor = "", room = "") => {
-      if (!Array.isArray(items)) return;
+      if (!Array.isArray(items)) {
+        console.warn("Expected array for subitems, got:", items);
+        return;
+      }
+
       items.forEach((item) => {
-        const type = item.type?.[0];
-        const name = item.name?.[0];
+        const type = item.type?.[0] || item.type;
+        const name = item.name?.[0] || item.name;
+
         if (type === "4") floor = name;
         else if (type === "8") room = name;
-        const config = item?.itemdata?.[0]?.config_data_file?.[0];
+
+        const config = item?.itemdata?.[0]?.config_data_file?.[0]
+                    || item?.itemdata?.config_data_file;
+
         if (config) {
           output.push({
             floor,
             room,
             name,
             manufacturer: "Unknown",
-            model: config
+            model: config,
           });
         }
-        if (item.subitems?.[0]?.item) {
-          traverse(item.subitems[0].item, floor, room);
-        }
+
+        const sub = item?.subitems?.[0]?.item || item?.subitems?.item;
+        if (sub) traverse(sub, floor, room);
+        else console.log("No subitems for item:", name, "Type:", type);
       });
     };
-    const systemItems = xml?.currentstate?.systemitems?.[0]?.item || [];
+
+    const systemItems = xml?.currentstate?.systemitems?.[0]?.item
+                     || xml?.currentstate?.systemitems?.item;
+
+    if (!systemItems) {
+      console.warn("No system items found in XML structure.");
+      return [];
+    }
+
+    console.log("System Items found:", systemItems.length);
+
     systemItems.forEach((topItem) => {
-      traverse(topItem?.subitems?.[0]?.item);
+      const sub = topItem?.subitems?.[0]?.item || topItem?.subitems?.item;
+      if (sub) traverse(sub);
+      else console.warn("Top-level item has no subitems:", topItem.name || "[Unnamed]");
     });
+
     return output;
   };
+
 
   const exportToCSV = () => {
     const header = ['Floor', 'Room', 'Device Name', 'Manufacturer', 'Model'];

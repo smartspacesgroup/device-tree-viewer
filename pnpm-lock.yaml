@@ -28,7 +28,7 @@ importers:
         specifier: ^8.4.24
         version: 8.5.6
       tailwindcss:
-        specifier: ^3.4.17
+        specifier: ^3.4.0
         version: 3.4.17
       vite:
         specifier: ^5.0.0
