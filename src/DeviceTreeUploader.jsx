@@ -132,7 +132,7 @@ export default function DeviceTreeUploader() {
               const csv = [
                 ['Floor', 'Room', 'Device Name', 'Manufacturer', 'Model'],
                 ...devices.map(d => [d.floor, d.room, d.name, d.manufacturer, d.model])
-              ].map(row => row.map(v => `"${(v || '').replace(/"/g, '""')}"`).join(",")).join("\n");
+              ].map(row => row.map(v => `"${(v || '').replace(/"/g, '""')}"`).join(","]).map(row => row.map(v => `"${(v || '').replace(/"/g, '""')}"`).join(",")).join("\n");
 
               const blob = new Blob([csv], { type: 'text/csv' });
               const url = URL.createObjectURL(blob);
@@ -143,8 +143,7 @@ export default function DeviceTreeUploader() {
               URL.revokeObjectURL(url);
             }}
           >
-            Download CSV
-          </button>
+            Download CSV</button>
         </div>
         <div className="mb-4">
           <button
@@ -153,7 +152,7 @@ export default function DeviceTreeUploader() {
               const csv = [
                 ['Floor', 'Room', 'Device Name', 'Manufacturer', 'Model'],
                 ...devices.map(d => [d.floor, d.room, d.name, d.manufacturer, d.model])
-              ].map(row => row.map(v => `"${(v || '').replace(/"/g, '""')}"`).join(",")).join("\n");
+              ].map(row => row.map(v => `"${(v || '').replace(/"/g, '""')}"`).join(","]).map(row => row.map(v => `"${(v || '').replace(/"/g, '""')}"`).join(",")).join("\n");
 
               const blob = new Blob([csv], { type: 'text/csv' });
               const url = URL.createObjectURL(blob);
@@ -164,8 +163,7 @@ export default function DeviceTreeUploader() {
               URL.revokeObjectURL(url);
             }}
           >
-            Download CSV
-          </button>
+            Download CSV</button>
         </div>
         <table className="min-w-full border mt-4">
           <thead>
