@@ -69,7 +69,7 @@ export default function DeviceTreeUploader() {
         }
       });
     };
-    const systemItems = xml?.project?.systemitems?.[0]?.item || [];
+    const systemItems = xml?.currentstate?.systemitems?.[0]?.item || [];
     systemItems.forEach((topItem) => {
       traverse(topItem?.subitems?.[0]?.item);
     });
@@ -80,7 +80,7 @@ export default function DeviceTreeUploader() {
     const header = ['Floor', 'Room', 'Device Name', 'Manufacturer', 'Model'];
     const rows = devices.map(d => [d.floor, d.room, d.name, d.manufacturer, d.model]);
     const csv = [header, ...rows]
-      .map(r => r.map(v => `"\${(v || '').replace(/"/g, '""')}"`).join(","))
+      .map(r => r.map(v => `"${(v || '').replace(/"/g, '""')}"`).join(","))
       .join("\n");
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
