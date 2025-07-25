@@ -1,58 +1,27 @@
-
 import React, { useState } from "react";
-import * as xml2js from "xml2js";
+import { parseStringPromise } from "xml2js";
 
 export default function DeviceTreeUploader() {
   const [devices, setDevices] = useState([]);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [parsingProgress, setParsingProgress] = useState(0);
-  const [parsing, setParsing] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleFileUpload = (event) => {
+  const handleFileUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
-
-    reader.onprogress = (e) => {
-      if (e.lengthComputable) {
-        const percent = Math.round((e.loaded / e.total) * 100);
-        setUploadProgress(percent);
+    reader.onload = async (e) => {
+      try {
+        const result = await parseStringPromise(e.target.result);
+        const parsed = extractDevicesFromXML(result);
+        if (parsed.length === 0) throw new Error("No items found in XML");
+        setDevices(parsed);
+        setError("");
+      } catch (err) {
+        setError("Failed to parse XML: " + err.message);
+        setDevices([]);
       }
     };
-
-    reader.onloadstart = () => {
-      setUploadProgress(0);
-      setParsingProgress(0);
-    };
-
-    reader.onloadend = () => {
-      setUploadProgress(100);
-    };
-
-    reader.onload = async (e) => {
-      setParsing(true);
-      const xml = e.target.result;
-      const parser = new xml2js.Parser();
-      const result = await parser.parseStringPromise(xml);
-
-      // simulate parsing delay
-      let progress = 0;
-      const interval = setInterval(() => {
-        progress += 10;
-        if (progress >= 100) {
-          clearInterval(interval);
-          setParsingProgress(100);
-          setParsing(false);
-        } else {
-          setParsingProgress(progress);
-        }
-      }, 30);
-
-      const parsedDevices = extractDevicesFromXML(result);
-      setDevices(parsedDevices);
-    };
-
     reader.readAsText(file);
   };
 
@@ -94,48 +63,30 @@ export default function DeviceTreeUploader() {
     return output;
   };
 
-  const exportToCSV = () => {
+  const downloadCSV = () => {
     const header = ["Floor", "Room", "Device Name", "Manufacturer", "Model"];
-    const rows = devices.map(d => [d.floor, d.room, d.name, d.manufacturer, d.model]);
-    const csv = [header, ...rows]
-      .map(row => row.map(val => `"${(val || "").replace(/"/g, '""')}"`).join(","))
-      .join("\n");
+    const rows = devices.map((d) => [d.floor, d.room, d.name, d.manufacturer, d.model]);
+    const csv = [header, ...rows].map((r) =>
+      r.map((v) => `"${(v || "").replace(/"/g, '""')}"`).join(",")
+    ).join("\n");
 
     const blob = new Blob([csv], { type: "text/csv" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "devices.csv";
-    a.click();
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "devices.csv";
+    link.click();
   };
 
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-4">Smart Spaces Group Care Plan Parser</h1>
-      <h2 className="text-2xl font-bold mb-4">Upload Smart Home Project XML</h2>
       <input type="file" accept=".xml" onChange={handleFileUpload} className="mb-4" />
-      <div className="mb-2">Upload Progress: {uploadProgress}%</div>
-      <div className="w-full bg-gray-200 h-2 rounded mb-4">
-        <div
-          className="bg-blue-500 h-2 rounded"
-          style={{ width: `${uploadProgress}%` }}
-        ></div>
-      </div>
-      {parsing && (
-        <>
-          <div className="mb-2">Parsing Progress: {parsingProgress}%</div>
-          <div className="w-full bg-gray-200 h-2 rounded mb-4">
-            <div
-              className="bg-green-500 h-2 rounded"
-              style={{ width: `${parsingProgress}%` }}
-            ></div>
-          </div>
-        </>
-      )}
+      {error && <p className="text-red-500 mb-4">{error}</p>}
       {devices.length > 0 && (
         <>
           <button
-            className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            onClick={exportToCSV}
+            onClick={downloadCSV}
+            className="mb-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
           >
             Export CSV
           </button>
