@@ -33,7 +33,8 @@ export default function DeviceTreeUploader() {
         const parsedDevices = extractDevicesFromXML(result);
         setParsingProgress(100);
         setDevices(parsedDevices);
-      } catch (err) {
+      }   } catch (err) {
+    console.error("❌ Failed to parse XML:", err);
         setError("Failed to parse XML: " + err.message);
         setParsingProgress(0);
       }
