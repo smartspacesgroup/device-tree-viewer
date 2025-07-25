@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import * as xml2js from "xml2js";
 
@@ -5,30 +6,51 @@ export default function DeviceTreeUploader() {
   const [devices, setDevices] = useState([]);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [parsingProgress, setParsingProgress] = useState(0);
-  const [parsingStatus, setParsingStatus] = useState("");
+  const [parsing, setParsing] = useState(false);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
-    setUploadProgress(100); // simulate instant local upload
-    setParsingProgress(0);
-    setParsingStatus("Parsing...");
+
+    reader.onprogress = (e) => {
+      if (e.lengthComputable) {
+        const percent = Math.round((e.loaded / e.total) * 100);
+        setUploadProgress(percent);
+      }
+    };
+
+    reader.onloadstart = () => {
+      setUploadProgress(0);
+      setParsingProgress(0);
+    };
+
+    reader.onloadend = () => {
+      setUploadProgress(100);
+    };
 
     reader.onload = async (e) => {
-      try {
-        const xml = e.target.result;
-        const parser = new xml2js.Parser();
-        const result = await parser.parseStringPromise(xml);
-        const parsedDevices = extractDevicesFromXML(result);
-        setDevices(parsedDevices);
-        setParsingProgress(100);
-        setParsingStatus("Done");
-      } catch (err) {
-        setParsingStatus("Error parsing XML");
-        console.error("Parsing error:", err);
-      }
+      setParsing(true);
+      const xml = e.target.result;
+      const parser = new xml2js.Parser();
+      const result = await parser.parseStringPromise(xml);
+
+      // simulate parsing delay
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 10;
+        if (progress >= 100) {
+          clearInterval(interval);
+          setParsingProgress(100);
+          setParsing(false);
+        } else {
+          setParsingProgress(progress);
+        }
+      }, 30);
+
+      const parsedDevices = extractDevicesFromXML(result);
+      setDevices(parsedDevices);
     };
 
     reader.readAsText(file);
@@ -72,46 +94,74 @@ export default function DeviceTreeUploader() {
     return output;
   };
 
+  const exportToCSV = () => {
+    const header = ["Floor", "Room", "Device Name", "Manufacturer", "Model"];
+    const rows = devices.map(d => [d.floor, d.room, d.name, d.manufacturer, d.model]);
+    const csv = [header, ...rows]
+      .map(row => row.map(val => `"${(val || "").replace(/"/g, '""')}"`).join(","))
+      .join("\n");
+
+    const blob = new Blob([csv], { type: "text/csv" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "devices.csv";
+    a.click();
+  };
+
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-4">Smart Spaces Group Care Plan Parser</h1>
       <h2 className="text-2xl font-bold mb-4">Upload Smart Home Project XML</h2>
       <input type="file" accept=".xml" onChange={handleFileUpload} className="mb-4" />
-      {uploadProgress > 0 && (
-        <div className="mb-2">
-          <label className="text-sm">Upload Progress:</label>
-          <progress className="w-full" value={uploadProgress} max="100"></progress>
-        </div>
-      )}
-      {parsingProgress > 0 && (
-        <div className="mb-4">
-          <label className="text-sm">Parsing Progress: {parsingStatus}</label>
-          <progress className="w-full" value={parsingProgress} max="100"></progress>
-        </div>
+      <div className="mb-2">Upload Progress: {uploadProgress}%</div>
+      <div className="w-full bg-gray-200 h-2 rounded mb-4">
+        <div
+          className="bg-blue-500 h-2 rounded"
+          style={{ width: `${uploadProgress}%` }}
+        ></div>
+      </div>
+      {parsing && (
+        <>
+          <div className="mb-2">Parsing Progress: {parsingProgress}%</div>
+          <div className="w-full bg-gray-200 h-2 rounded mb-4">
+            <div
+              className="bg-green-500 h-2 rounded"
+              style={{ width: `${parsingProgress}%` }}
+            ></div>
+          </div>
+        </>
       )}
       {devices.length > 0 && (
-        <table className="min-w-full border">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border px-4 py-2">Floor</th>
-              <th className="border px-4 py-2">Room</th>
-              <th className="border px-4 py-2">Device Name</th>
-              <th className="border px-4 py-2">Manufacturer</th>
-              <th className="border px-4 py-2">Model</th>
-            </tr>
-          </thead>
-          <tbody>
-            {devices.map((device, index) => (
-              <tr key={index}>
-                <td className="border px-4 py-2">{device.floor}</td>
-                <td className="border px-4 py-2">{device.room}</td>
-                <td className="border px-4 py-2">{device.name}</td>
-                <td className="border px-4 py-2">{device.manufacturer}</td>
-                <td className="border px-4 py-2">{device.model}</td>
+        <>
+          <button
+            className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            onClick={exportToCSV}
+          >
+            Export CSV
+          </button>
+          <table className="min-w-full border">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="border px-4 py-2">Floor</th>
+                <th className="border px-4 py-2">Room</th>
+                <th className="border px-4 py-2">Device Name</th>
+                <th className="border px-4 py-2">Manufacturer</th>
+                <th className="border px-4 py-2">Model</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {devices.map((device, index) => (
+                <tr key={index}>
+                  <td className="border px-4 py-2">{device.floor}</td>
+                  <td className="border px-4 py-2">{device.room}</td>
+                  <td className="border px-4 py-2">{device.name}</td>
+                  <td className="border px-4 py-2">{device.manufacturer}</td>
+                  <td className="border px-4 py-2">{device.model}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
       )}
     </div>
   );
