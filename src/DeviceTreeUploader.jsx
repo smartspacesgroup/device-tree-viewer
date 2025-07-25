@@ -27,9 +27,8 @@ export default function DeviceTreeUploader() {
       setUploadProgress(100);
       try {
         setParsingProgress(10);
-        const { XMLParser } = await import("fast-xml-parser");
-        const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_" });
-        const result = parser.parse(e.target.result);
+        const { parseXML } = await import("./parseXML.js");
+        const result = parseXML(e.target.result);
         setParsingProgress(50);
         const parsedDevices = extractDevicesFromXML(result);
         setParsingProgress(100);
