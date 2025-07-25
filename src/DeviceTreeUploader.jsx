@@ -27,11 +27,9 @@ export default function DeviceTreeUploader() {
     reader.onload = async (e) => {
       setUploadProgress(100);
       try {
-const parser = new XMLParser({
-  ignoreAttributes: false,
-  attributeNamePrefix: "@_",
-});
-const result = parser.parse(e.target.result); parser.parseStringPromise(e.target.result);
+        setParsingProgress(10);
+        const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_" });
+        const result = parser.parse(e.target.result);
         setParsingProgress(50);
         const parsedDevices = extractDevicesFromXML(result);
         setParsingProgress(100);
