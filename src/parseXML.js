@@ -1,9 +1,10 @@
 
-export async function parseXML(content) {
-  const fastXmlParser = await eval("import('fast-xml-parser')");
-  const parser = new fastXmlParser.XMLParser({
+import { XMLParser } from 'fast-xml-parser';
+
+export async function parseXML(xmlString) {
+  const parser = new XMLParser({
     ignoreAttributes: false,
-    attributeNamePrefix: "@_",
+    attributeNamePrefix: "",
   });
-  return parser.parse(content);
+  return parser.parse(xmlString);
 }
