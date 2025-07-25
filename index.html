@@ -1,26 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Minimal XML Parser Test</title>
-</head>
-<body>
-  <h1>XML Upload Test</h1>
-  <input type="file" id="fileInput" />
-  <pre id="output"></pre>
-  <script>
-    document.getElementById('fileInput').addEventListener('change', function (e) {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function (event) {
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(event.target.result, "text/xml");
-        document.getElementById('output').textContent = new XMLSerializer().serializeToString(xmlDoc);
-      };
-      reader.readAsText(file);
-    });
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Spaces Group Care Plan Parser</title>
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
