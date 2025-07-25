@@ -146,6 +146,27 @@ export default function DeviceTreeUploader() {
             Download CSV
           </button>
         </div>
+        <div className="mb-4">
+          <button
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            onClick={() => {
+              const csv = [
+                ['Floor', 'Room', 'Device Name', 'Manufacturer', 'Model'],
+                ...devices.map(d => [d.floor, d.room, d.name, d.manufacturer, d.model])
+              ].map(row => row.map(v => `"${(v || '').replace(/"/g, '""')}"`).join(",")).join("\n");
+
+              const blob = new Blob([csv], { type: 'text/csv' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'devices.csv';
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
+          >
+            Download CSV
+          </button>
+        </div>
         <table className="min-w-full border mt-4">
           <thead>
             <tr className="bg-gray-100">
