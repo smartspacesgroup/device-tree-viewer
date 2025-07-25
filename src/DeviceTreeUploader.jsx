@@ -45,6 +45,7 @@ export default function DeviceTreeUploader() {
   };
 
   
+  
   const extractDevicesFromXML = (xml) => {
     const output = [];
 
@@ -80,10 +81,13 @@ export default function DeviceTreeUploader() {
       });
     };
 
-    const systemItems = xml?.currentstate?.systemitems?.[0]?.item
-                     || xml?.currentstate?.systemitems?.item;
+    const systemItems = (
+      xml?.currentstate?.systemitems?.item ||
+      xml?.currentstate?.systemitems?.[0]?.item ||
+      []
+    );
 
-    if (!systemItems) {
+    if (!systemItems || !Array.isArray(systemItems)) {
       console.warn("No system items found in XML structure.");
       return [];
     }
@@ -98,6 +102,7 @@ export default function DeviceTreeUploader() {
 
     return output;
   };
+
 
 
   const exportToCSV = () => {
