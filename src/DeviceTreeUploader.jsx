@@ -32,8 +32,10 @@ export default function DeviceTreeUploader() {
         parser.parseStringPromise(xml).then((result) => {
           const parsedDevices = extractDevicesFromXML(result);
           setDevices(parsedDevices);
+        console.log('Parsed devices:', parsedDevices);
           setParsing(false);
           setParsingProgress(100);
+        console.log('Parsed devices:', parsedDevices);
         });
       };
       reader.readAsText(file);
@@ -61,14 +63,18 @@ export default function DeviceTreeUploader() {
         const name = item.name?.[0];
         if (type === "4") floor = name;
         else if (type === "8") room = name;
-        const config = item?.itemdata?.[0]?.config_data_file?.[0];
+        
+        const manufacturer = item?.itemdata?.[0]?.manufacturer?.[0] || "Unknown";
+        const model = item?.itemdata?.[0]?.model?.[0] ||
+                      item?.itemdata?.[0]?.config_data_file?.[0] || "Unknown";
         if (config) {
           output.push({
             floor,
             room,
             name,
             manufacturer: "Unknown",
-            model: config,
+            model,
+            manufacturer,
           });
         }
         if (item.subitems?.[0]?.item) {
@@ -115,7 +121,31 @@ export default function DeviceTreeUploader() {
         </div>
       )}
 
+      {!parsing && devices.length === 0 && (
+        <p className="text-red-600 mt-4">No devices found in XML.</p>
+      )}
       {devices.length > 0 && (
+        <div className="mb-4">
+          <button
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            onClick={() => {
+              const csv = [
+                ['Floor', 'Room', 'Device Name', 'Manufacturer', 'Model'],
+                ...devices.map(d => [d.floor, d.room, d.name, d.manufacturer, d.model])
+              ].map(row => row.map(v => `"${(v || '').replace(/"/g, '""')}"`).join(",")).join("\n");
+
+              const blob = new Blob([csv], { type: 'text/csv' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'devices.csv';
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
+          >
+            Download CSV
+          </button>
+        </div>
         <table className="min-w-full border mt-4">
           <thead>
             <tr className="bg-gray-100">
