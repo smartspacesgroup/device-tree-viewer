@@ -4,42 +4,52 @@ import * as xml2js from "xml2js";
 
 export default function DeviceTreeUploader() {
   const [devices, setDevices] = useState([]);
-  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [parsingProgress, setParsingProgress] = useState(0);
   const [parsing, setParsing] = useState(false);
+  const [uploading, setUploading] = useState(false);
+
+  const simulateProgress = (setter, doneCallback) => {
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 10;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        doneCallback();
+      }
+      setter(Math.floor(progress));
+    }, 100);
+  };
 
   const parseFile = (file) => {
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      setParsing(true);
-      const xml = e.target.result;
-      const parser = new xml2js.Parser();
-      parser.parseStringPromise(xml).then((result) => {
-        const parsedDevices = extractDevicesFromXML(result);
-        setDevices(parsedDevices);
-        setParsing(false);
-        setUploading(false);
-      });
-    };
-    reader.readAsText(file);
+    setParsing(true);
+    simulateProgress(setParsingProgress, () => {
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const xml = e.target.result;
+        const parser = new xml2js.Parser();
+        parser.parseStringPromise(xml).then((result) => {
+          const parsedDevices = extractDevicesFromXML(result);
+          setDevices(parsedDevices);
+          setParsing(false);
+          setParsingProgress(100);
+        });
+      };
+      reader.readAsText(file);
+    });
   };
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
     setUploading(true);
-    parseFile(file);
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (!file) return;
-    setUploading(true);
-    parseFile(file);
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
+    setUploadProgress(0);
+    setParsingProgress(0);
+    simulateProgress(setUploadProgress, () => {
+      setUploading(false);
+      parseFile(file);
+    });
   };
 
   const extractDevicesFromXML = (xml) => {
@@ -79,31 +89,29 @@ export default function DeviceTreeUploader() {
     <div className="p-6 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Smart Home Device Tree Viewer</h1>
 
-      <div
-        className="border-4 border-dashed border-blue-400 rounded-lg p-6 mb-4 text-center cursor-pointer bg-blue-50"
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-      >
-        <p className="text-blue-600">Drag and drop your XML file here</p>
-      </div>
-
       <input type="file" accept=".xml" onChange={handleFileUpload} className="mb-4" />
 
       {uploading && (
         <div className="mb-4">
           <div className="w-full bg-gray-200 rounded-full h-4">
-            <div className="bg-blue-500 h-4 rounded-full w-full animate-pulse"></div>
+            <div
+              className="bg-blue-500 h-4 rounded-full transition-all duration-200"
+              style={{ width: `${uploadProgress}%` }}
+            ></div>
           </div>
-          <p className="text-sm text-blue-700 mt-1">Uploading...</p>
+          <p className="text-sm text-blue-700 mt-1">Uploading: {uploadProgress}%</p>
         </div>
       )}
 
       {parsing && (
         <div className="mb-4">
           <div className="w-full bg-gray-200 rounded-full h-4">
-            <div className="bg-green-500 h-4 rounded-full w-full animate-pulse"></div>
+            <div
+              className="bg-green-500 h-4 rounded-full transition-all duration-200"
+              style={{ width: `${parsingProgress}%` }}
+            ></div>
           </div>
-          <p className="text-sm text-green-700 mt-1">Parsing XML...</p>
+          <p className="text-sm text-green-700 mt-1">Parsing XML: {parsingProgress}%</p>
         </div>
       )}
 
