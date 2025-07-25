@@ -1,10 +1,16 @@
 
-import { XMLParser } from 'fast-xml-parser';
+import { XMLParser } from "fast-xml-parser";
 
-export async function parseXML(xmlString) {
+export default function parseXML(xmlString) {
   const parser = new XMLParser({
     ignoreAttributes: false,
-    attributeNamePrefix: "",
+    attributeNamePrefix: "@_",
+    allowBooleanAttributes: true,
+    parseAttributeValue: true,
+    parseTagValue: true,
   });
-  return parser.parse(xmlString);
+
+  const result = parser.parse(xmlString);
+  console.log("🧪 Raw parsed object:", JSON.stringify(result, null, 2));
+  return result;
 }
