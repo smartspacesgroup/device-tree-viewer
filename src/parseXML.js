@@ -1,7 +1,7 @@
 
 import { XMLParser } from "fast-xml-parser";
 
-export default function parseXML(xmlString) {
+export function parseXML(xmlString) {
   const parser = new XMLParser({
     ignoreAttributes: false,
     attributeNamePrefix: "@_",
