@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import * as xml2js from "xml2js";
+import { XMLParser } from "fast-xml-parser";
 
 export default function DeviceTreeUploader() {
   const [devices, setDevices] = useState([]);
@@ -27,9 +27,11 @@ export default function DeviceTreeUploader() {
     reader.onload = async (e) => {
       setUploadProgress(100);
       try {
-        setParsingProgress(10);
-        const parser = new xml2js.Parser();
-        const result = await parser.parseStringPromise(e.target.result);
+const parser = new XMLParser({
+  ignoreAttributes: false,
+  attributeNamePrefix: "@_",
+});
+const result = parser.parse(e.target.result); parser.parseStringPromise(e.target.result);
         setParsingProgress(50);
         const parsedDevices = extractDevicesFromXML(result);
         setParsingProgress(100);
