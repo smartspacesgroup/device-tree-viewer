@@ -4,6 +4,21 @@ import * as xml2js from "xml2js";
 
 export default function DeviceTreeUploader() {
   const [devices, setDevices] = useState([]);
+  const exportToCSV = () => {
+    const header = ['Floor', 'Room', 'Device Name', 'Manufacturer', 'Model'];
+    const rows = devices.map(d => [d.floor, d.room, d.name, d.manufacturer, d.model]);
+      .map(r => r.map(v => \`"\${(v || '').replace(/"/g, '""')}"\`).join(","))
+      .join("\n");
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'devices.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const [uploadProgress, setUploadProgress] = useState(0);
   const [parsingProgress, setParsingProgress] = useState(0);
   const [parsing, setParsing] = useState(false);
@@ -125,10 +140,8 @@ export default function DeviceTreeUploader() {
         <p className="text-red-600 mt-4">No devices found in XML.</p>
       )}
       {devices.length > 0 && (
-            onClick={() => {
               const header = ['Floor', 'Room', 'Device Name', 'Manufacturer', 'Model'];
               const rows = devices.map(d => [d.floor, d.room, d.name, d.manufacturer, d.model]);
-              const csv = [header, ...rows].map(r => r.map(v => `"${(v || '').replace(/"/g, '""')}"`).join(",")).join("\n");
               const blob = new Blob([csv], { type: 'text/csv' });
               const url = URL.createObjectURL(blob);
               const a = document.createElement('a');
@@ -137,10 +150,8 @@ export default function DeviceTreeUploader() {
               a.click();
               URL.revokeObjectURL(url);
             }}
-            onClick={() => {
               const header = ['Floor', 'Room', 'Device Name', 'Manufacturer', 'Model'];
               const rows = devices.map(d => [d.floor, d.room, d.name, d.manufacturer, d.model]);
-              const csv = [header, ...rows].map(r => r.map(v => `"${(v || '').replace(/"/g, '""')}"`).join(",")).join("\n");
               const blob = new Blob([csv], { type: 'text/csv' });
               const url = URL.createObjectURL(blob);
               const a = document.createElement('a');
@@ -149,7 +160,7 @@ export default function DeviceTreeUploader() {
               a.click();
               URL.revokeObjectURL(url);
             }}
-          >Download CSV</button>
+            onClick={exportToCSV}>Download CSV</button>
         </div>
         <table className="min-w-full border mt-4">
           <thead>
