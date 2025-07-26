@@ -1,37 +1,31 @@
 
 import { XMLParser } from "fast-xml-parser";
 
-export function parseXML(xmlText) {
+export function parseXML(xmlString) {
   const parser = new XMLParser({
     ignoreAttributes: false,
     attributeNamePrefix: "@_",
-    isArray: (name, jpath, isLeafNode, isAttribute) =>
-      ['item', 'value', 'entry', 'tab'].includes(name)
+    allowBooleanAttributes: true,
+    parseAttributeValue: true,
+    parseTagValue: true,
   });
 
-  const result = parser.parse(xmlText);
+  const result = parser.parse(xmlString);
 
-  // Normalize subitems.item to array
-  const normalizeItems = (items) => {
-    if (!items) return [];
-    if (Array.isArray(items)) return items;
-    return [items];
-  };
+  // Normalize systemitems.item and its subitems.item to arrays
+  const systemItems = result?.currentstate?.systemitems;
+  if (systemItems && systemItems.item) {
+    if (!Array.isArray(systemItems.item)) {
+      systemItems.item = [systemItems.item];
+    }
 
-  const systemItem = result?.currentstate?.systemitems?.item;
-  if (systemItem && systemItem.subitems) {
-    systemItem.subitems.item = normalizeItems(systemItem.subitems.item);
-    systemItem.subitems.item.forEach(level1 => {
-      if (level1.subitems) {
-        level1.subitems.item = normalizeItems(level1.subitems.item);
-        level1.subitems.item.forEach(level2 => {
-          if (level2.subitems) {
-            level2.subitems.item = normalizeItems(level2.subitems.item);
-          }
-        });
+    systemItems.item.forEach((item) => {
+      if (item.subitems?.item && !Array.isArray(item.subitems.item)) {
+        item.subitems.item = [item.subitems.item];
       }
     });
   }
 
+  console.log("🧪 Raw parsed object:", JSON.stringify(result, null, 2));
   return result;
 }
