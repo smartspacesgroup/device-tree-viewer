@@ -12,47 +12,20 @@ export function parseXML(xmlString) {
 
   const result = parser.parse(xmlString);
 
+  // Normalize systemitems.item and its subitems.item to arrays
   const systemItems = result?.currentstate?.systemitems;
-  const metadata = result?.currentstate?.devicedata ?? {};
+  if (systemItems && systemItems.item) {
+    if (!Array.isArray(systemItems.item)) {
+      systemItems.item = [systemItems.item];
+    }
 
-  if (!systemItems?.item) {
-    console.log("❌ No system items found in XML structure.");
-    return [];
+    systemItems.item.forEach((item) => {
+      if (item.subitems?.item && !Array.isArray(item.subitems.item)) {
+        item.subitems.item = [item.subitems.item];
+      }
+    });
   }
 
-  const ensureArray = (val) => (Array.isArray(val) ? val : [val]);
-
-  const flatDevices = [];
-
-  const walkItems = (items, context = {}) => {
-    for (const item of ensureArray(items)) {
-      const { id, name, type, subitems } = item;
-      const nextContext = { ...context };
-
-      if (type === 2) nextContext.building = name;
-      if (type === 3) nextContext.floor = name;
-      if (type === 8) nextContext.room = name;
-
-      if (type === 6 || type === 7) {
-        const meta = metadata[`:index:${id}`] || {};
-        flatDevices.push({
-          id,
-          name,
-          type,
-          ...nextContext,
-          manufacturer: meta.manufacturer || "Unknown",
-          model: meta.model || "Unknown",
-          devicename: meta.name || name || "Unnamed Device",
-        });
-      }
-
-      if (subitems?.item) {
-        walkItems(ensureArray(subitems.item), nextContext);
-      }
-    }
-  };
-
-  walkItems(ensureArray(systemItems.item));
-
-  return flatDevices;
+  console.log("🧪 Raw parsed object:", JSON.stringify(result, null, 2));
+  return result;
 }
