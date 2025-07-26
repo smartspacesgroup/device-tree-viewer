@@ -1,11 +1,10 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./DeviceTreeUploader.jsx";
+import "./index.css";
 
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import DeviceTreeViewer from './DeviceTreeViewer.jsx'
-import './index.css'
-
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <DeviceTreeViewer />
+    <App />
   </React.StrictMode>
-)
+);
