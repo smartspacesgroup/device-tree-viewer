@@ -47,6 +47,7 @@ export default function DeviceTreeUploader() {
 
   
   
+  
   const extractDevicesFromXML = (xml) => {
     const output = [];
 
@@ -92,39 +93,29 @@ export default function DeviceTreeUploader() {
         if (sub) traverse(sub, floor, room);
       });
     };
-    const output = [];
 
-    const traverse = (items, floor = "", room = "") => {
-      if (!Array.isArray(items)) {
-        console.warn("Expected array for subitems, got:", items);
-        return;
-      }
+    const systemItems = (
+      xml?.currentstate?.systemitems?.item ||
+      xml?.currentstate?.systemitems?.[0]?.item ||
+      []
+    );
 
-      items.forEach((item) => {
-        const type = item.type?.[0] || item.type;
-        const name = item.name?.[0] || item.name;
+    if (!systemItems || !Array.isArray(systemItems)) {
+      console.warn("No system items found in XML structure.");
+      return [];
+    }
 
-        if (type === "4") floor = name;
-        else if (type === "8") room = name;
+    console.log("System Items found:", systemItems.length);
 
-        const config = item?.itemdata?.[0]?.config_data_file?.[0]
-                    || item?.itemdata?.config_data_file;
+    systemItems.forEach((topItem) => {
+      const sub = topItem?.subitems?.[0]?.item || topItem?.subitems?.item;
+      if (sub) traverse(sub);
+      else console.warn("Top-level item has no subitems:", topItem.name || "[Unnamed]");
+    });
 
-        if (config) {
-          output.push({
-            floor,
-            room,
-            name,
-            manufacturer: "Unknown",
-            model: config,
-          });
-        }
+    return output;
+  };
 
-        const sub = item?.subitems?.[0]?.item || item?.subitems?.item;
-        if (sub) traverse(sub, floor, room);
-        else console.log("No subitems for item:", name, "Type:", type);
-      });
-    };
 
     const systemItems = (
       xml?.currentstate?.systemitems?.item ||
