@@ -1,55 +1,53 @@
-import { parseStringPromise } from 'xml2js';
+export async function parseXMLToTree(xmlString: string) {
+  const parser = new DOMParser();
+  const xml = parser.parseFromString(xmlString, "application/xml");
 
-export async function parseXMLToTree(xml: string) {
-  const result = await parseStringPromise(xml, { explicitArray: false });
+  const items = xml.querySelectorAll("currentstate > systemitems > item");
+  const devicedata = xml.querySelector("devicedata");
 
-  const root = result?.currentstate;
-  const items = root?.systemitems?.item;
-  const metadata = result?.devicedata || {};
+  if (!items.length) throw new Error("Could not find system items in XML");
 
-  if (!items) throw new Error("Could not find system items in XML");
-
-  function findRootItem(name: string) {
-    return Array.isArray(items)
-      ? items.find((it) => it.name === name)
-      : items.name === name ? items : null;
+  const metadata: Record<string, { manufacturer?: string; model?: string }> = {};
+  if (devicedata) {
+    for (const el of Array.from(devicedata.children)) {
+      const deviceId = el.tagName.replace(":index:", "");
+      const meta: any = {};
+      for (const child of Array.from(el.children)) {
+        meta[child.tagName] = child.textContent || "";
+      }
+      metadata[deviceId] = meta;
+    }
   }
 
   function extractDeviceMetadata(deviceId: string) {
-    const key = Object.keys(metadata).find((k) => k.endsWith(`:${deviceId}`));
-    if (!key) return {};
-    const device = metadata[key];
-    return {
-      manufacturer: device?.manufacturer || '',
-      model: device?.model || ''
-    };
+    return metadata[deviceId] || {};
   }
 
-  function buildTree(item: any): any {
-    const node: any = {
-      name: item.name
-    };
+  function buildTree(itemEl: Element): any {
+    const id = itemEl.querySelector("id")?.textContent || "";
+    const name = itemEl.querySelector("name")?.textContent || "";
+    const meta = extractDeviceMetadata(id);
 
-    if (item.id && typeof item.id === 'string') {
-      const meta = extractDeviceMetadata(item.id);
-      if (meta.manufacturer || meta.model) {
-        node.manufacturer = meta.manufacturer;
-        node.model = meta.model;
-      }
+    const node: any = { name };
+    if (meta.manufacturer || meta.model) {
+      node.manufacturer = meta.manufacturer;
+      node.model = meta.model;
     }
 
-    if (item.subitems?.item) {
-      const children = Array.isArray(item.subitems.item)
-        ? item.subitems.item
-        : [item.subitems.item];
+    const subitems = itemEl.querySelector(":scope > subitems");
+    if (subitems) {
+      const children = Array.from(subitems.querySelectorAll(":scope > item"));
       node.children = children.map(buildTree);
     }
 
     return node;
   }
 
-  const rootItem = findRootItem("206-15 Shearwater Ct W - The Madlins");
-  if (!rootItem) throw new Error("Root item '206-15 Shearwater Ct W - The Madlins' not found");
+  const rootItem = Array.from(items).find((el) =>
+    el.querySelector("name")?.textContent?.includes("206-15 Shearwater")
+  );
+
+  if (!rootItem) throw new Error("Root item not found");
 
   return [buildTree(rootItem)];
 }
