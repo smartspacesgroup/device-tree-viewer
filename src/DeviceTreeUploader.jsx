@@ -33,8 +33,10 @@ export default function DeviceTreeUploader() {
               model: meta.model,
 
           // Recurse deeper
-              const sub = item?.subitems?.[0]?.item || item?.subitems?.item;
-          if (sub) traverse(sub, floor, room);
+              {
+                const sub = item?.subitems?.[0]?.item || item?.subitems?.item;
+                if (sub) traverse(sub, floor, room);
+              }
 
       const systemItems = (
         xml?.currentstate?.systemitems?.item ||
@@ -49,7 +51,10 @@ export default function DeviceTreeUploader() {
       console.log("System Items found:", systemItems.length);
 
       systemItems.forEach((topItem) => {
-              const sub = item?.subitems?.[0]?.item || item?.subitems?.item;
+              {
+                const sub = item?.subitems?.[0]?.item || item?.subitems?.item;
+                if (sub) traverse(sub, floor, room);
+              }
         if (sub) traverse(sub);
         else console.warn("Top-level item has no subitems:", topItem.name || "[Unnamed]");
 
@@ -69,7 +74,10 @@ export default function DeviceTreeUploader() {
       console.log("System Items found:", systemItems.length);
 
       systemItems.forEach((topItem) => {
-              const sub = item?.subitems?.[0]?.item || item?.subitems?.item;
+              {
+                const sub = item?.subitems?.[0]?.item || item?.subitems?.item;
+                if (sub) traverse(sub, floor, room);
+              }
         if (sub) traverse(sub);
         else console.warn("Top-level item has no subitems:", topItem.name || "[Unnamed]");
 
