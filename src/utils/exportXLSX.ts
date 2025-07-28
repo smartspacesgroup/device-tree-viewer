@@ -13,8 +13,9 @@ export function exportTreeToXLSX(treeData: any[]) {
     Model: "Model"
   });
 
-  function traverse(node: any, pathParts: string[] = []) {
+  function traverse(node: any, pathParts: string[] = [], isDeviceLevel: boolean = false) {
     const nextParts = [...pathParts, node.name];
+
     const [project, home, building, floor, room, ...rest] = nextParts;
     const device = rest.length ? rest.join(" > ") : "";
 
@@ -29,8 +30,10 @@ export function exportTreeToXLSX(treeData: any[]) {
       Model: node.model || ""
     });
 
-    if (node.children) {
-      node.children.forEach((child: any) => traverse(child, nextParts));
+    // Only allow children to be traversed if the current node is NOT already a device
+    const isCurrentNodeDevice = !!(node.manufacturer || node.model);
+    if (!isDeviceLevel && node.children) {
+      node.children.forEach((child: any) => traverse(child, nextParts, isCurrentNodeDevice));
     }
   }
 
