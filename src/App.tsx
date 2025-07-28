@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TreeView from './components/TreeView';
 import { parseXMLToTree } from './utils/parser';
-import { exportTreeToCSV } from './utils/exportCSV';
+import { exportTreeToXLSX } from './utils/exportXLSX';
 
 function App() {
   const [treeData, setTreeData] = useState<any[]>([]);
@@ -54,7 +54,7 @@ function App() {
       {treeData.length > 0 && (
         <>
           <button
-            onClick={handleExport}
+            onClick={() => exportTreeToXLSX(treeData)}
             className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Export to CSV
