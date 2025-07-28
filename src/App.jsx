@@ -32,7 +32,11 @@ function App() {
             const name = node.name || "Unnamed";
             const id = node.id || node.deviceid;
             const newPath = [...path, name];
-            if (node.deviceid) {
+
+            const hasSubitems = node.subitems?.item;
+            const isDevice = node.deviceid && !hasSubitems;
+
+            if (isDevice) {
               const meta = metadataMap[node.deviceid] || {};
               devices.push({
                 Project: path[0] || "",
@@ -45,7 +49,8 @@ function App() {
                 Model: meta.model || ""
               });
             }
-            if (node.subitems?.item) {
+
+            if (hasSubitems) {
               traverse(node.subitems.item, newPath);
             }
           }
