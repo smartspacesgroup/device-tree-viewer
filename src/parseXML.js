@@ -12,20 +12,52 @@ export function parseXML(xmlString) {
 
   const result = parser.parse(xmlString);
 
-  // Normalize systemitems.item and its subitems.item to arrays
-  const systemItems = result?.currentstate?.systemitems;
-  if (systemItems && systemItems.item) {
-    if (!Array.isArray(systemItems.item)) {
-      systemItems.item = [systemItems.item];
-    }
+  const devices = [];
+  const metadata = result?.currentstate?.devices?.device ?? {};
+  const systemItems = result?.currentstate?.systemitems?.item ?? [];
 
-    systemItems.item.forEach((item) => {
-      if (item.subitems?.item && !Array.isArray(item.subitems.item)) {
-        item.subitems.item = [item.subitems.item];
+  const indexMap = {};
+  Object.keys(metadata).forEach((key) => {
+    const cleanKey = key.replace(":index:", "");
+    indexMap[cleanKey] = metadata[key];
+  });
+
+  const traverse = (items, floor = "", room = "") => {
+    if (!Array.isArray(items)) return;
+
+    items.forEach((item) => {
+      const type = item.type;
+      const name = item.name;
+      const id = item.id;
+
+      if (type === "3") floor = name;
+      else if (type === "8") room = name;
+
+      if (type === "6" || type === "7") {
+        const deviceId = item.deviceid;
+        const meta = indexMap[deviceId] || {};
+        devices.push({
+          floor,
+          room,
+          name: meta.name || name || "Unknown",
+          manufacturer: meta.manufacturer || "Unknown",
+          model: meta.model || "Unknown"
+        });
+      }
+
+      if (item.subitems?.item) {
+        const children = Array.isArray(item.subitems.item) ? item.subitems.item : [item.subitems.item];
+        traverse(children, floor, room);
       }
     });
-  }
+  };
 
-  console.log("🧪 Raw parsed object:", JSON.stringify(result, null, 2));
-  return result;
+  systemItems.forEach((topItem) => {
+    if (topItem.subitems?.item) {
+      const children = Array.isArray(topItem.subitems.item) ? topItem.subitems.item : [topItem.subitems.item];
+      traverse(children);
+    }
+  });
+
+  return devices;
 }
