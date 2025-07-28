@@ -13,28 +13,38 @@ export function exportTreeToXLSX(treeData: any[]) {
     Model: "Model"
   });
 
-  function traverse(node: any, pathParts: string[] = [], isDeviceLevel: boolean = false) {
+  function traverse(node: any, pathParts: string[] = [], isDeviceLevel: boolean = false): boolean {
     const nextParts = [...pathParts, node.name];
-
-    const [project, home, building, floor, room, ...rest] = nextParts;
-    const device = rest.length ? rest.join(" > ") : "";
-
-    rows.push({
-      Project: project || "",
-      Home: home || "",
-      Building: building || "",
-      Floor: floor || "",
-      Room: room || "",
-      Device: device,
-      Manufacturer: node.manufacturer || "",
-      Model: node.model || ""
-    });
-
-    // Only allow children to be traversed if the current node is NOT already a device
     const isCurrentNodeDevice = !!(node.manufacturer || node.model);
+
+    let hasChildDevice = false;
     if (!isDeviceLevel && node.children) {
-      node.children.forEach((child: any) => traverse(child, nextParts, isCurrentNodeDevice));
+      for (const child of node.children) {
+        const childIsDevice = traverse(child, nextParts, isCurrentNodeDevice);
+        hasChildDevice ||= childIsDevice;
+      }
     }
+
+    // Only include the current row if:
+    // - it's a device node
+    // - and it does NOT have a device child
+    if (isCurrentNodeDevice && !hasChildDevice) {
+      const [project, home, building, floor, room, ...rest] = nextParts;
+      const device = rest.length ? rest.join(" > ") : "";
+
+      rows.push({
+        Project: project || "",
+        Home: home || "",
+        Building: building || "",
+        Floor: floor || "",
+        Room: room || "",
+        Device: device,
+        Manufacturer: node.manufacturer || "",
+        Model: node.model || ""
+      });
+    }
+
+    return isCurrentNodeDevice || hasChildDevice;
   }
 
   treeData.forEach((root) => traverse(root));
