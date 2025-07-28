@@ -2,19 +2,29 @@ import * as XLSX from 'xlsx';
 
 export function exportTreeToXLSX(treeData: any[]) {
   const rows: any[] = [];
-  rows.push({ Building: "Building", Floor: "Floor", Room: "Room", Device: "Device", Manufacturer: "Manufacturer", Model: "Model" });
+  rows.push({
+    Project: "Project",
+    Home: "Home",
+    Building: "Building",
+    Floor: "Floor",
+    Room: "Room",
+    Device: "Device",
+    Manufacturer: "Manufacturer",
+    Model: "Model"
+  });
 
   function traverse(node: any, pathParts: string[] = []) {
     const nextParts = [...pathParts, node.name];
-    const depth = nextParts.length;
-    const [building, floor, room, ...rest] = nextParts;
-    const device = rest.length ? rest.join(" > ") : undefined;
+    const [project, home, building, floor, room, ...rest] = nextParts;
+    const device = rest.length ? rest.join(" > ") : "";
 
     rows.push({
+      Project: project || "",
+      Home: home || "",
       Building: building || "",
       Floor: floor || "",
       Room: room || "",
-      Device: device || (depth === 4 ? nextParts[3] : ""),
+      Device: device,
       Manufacturer: node.manufacturer || "",
       Model: node.model || ""
     });
