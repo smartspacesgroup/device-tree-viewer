@@ -50,6 +50,50 @@ export default function DeviceTreeUploader() {
   const extractDevicesFromXML = (xml) => {
     const output = [];
 
+    // Step 1: Grab device metadata map
+    const deviceMeta = xml?.currentstate?.devicedata?.[0]?.index || xml?.currentstate?.devicedata?.index || {};
+
+    const getDeviceMeta = (id) => {
+      const key = `:index:${id}`;
+      const meta = deviceMeta?.[key];
+      return {
+        manufacturer: meta?.manufacturer || "Unknown",
+        model: meta?.model || "Unknown",
+        name: meta?.name || "Unknown",
+      };
+    };
+
+    const traverse = (items, floor = "", room = "") => {
+      if (!Array.isArray(items)) return;
+
+      items.forEach((item) => {
+        const type = item.type?.[0] || item.type;
+        const name = item.name?.[0] || item.name;
+
+        if (type === "4") floor = name;
+        else if (type === "8") room = name;
+
+        // Device types 6 and 7
+        if (type === "6" || type === "7") {
+          const deviceId = item?.itemdata?.deviceid?.[0] || item?.itemdata?.deviceid;
+          const meta = getDeviceMeta(deviceId);
+
+          output.push({
+            floor,
+            room,
+            name: meta.name,
+            manufacturer: meta.manufacturer,
+            model: meta.model,
+          });
+        }
+
+        // Recurse deeper
+        const sub = item?.subitems?.[0]?.item || item?.subitems?.item;
+        if (sub) traverse(sub, floor, room);
+      });
+    };
+    const output = [];
+
     const traverse = (items, floor = "", room = "") => {
       if (!Array.isArray(items)) {
         console.warn("Expected array for subitems, got:", items);
