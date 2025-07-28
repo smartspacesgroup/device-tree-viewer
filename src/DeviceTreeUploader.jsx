@@ -1,6 +1,7 @@
+  import React, { useState } from "react";
+
 export default function DeviceTreeUploader() {
 
-  import React, { useState } from "react";
 
     const [devices, setDevices] = useState([]);
     const [uploadProgress, setUploadProgress] = useState(0);
