@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
-import { parseStringPromise } from 'xml2js';
+import { XMLParser } from 'fast-xml-parser';
 import metadataMap from './deviceid_metadata_map.json';
 
 function App() {
@@ -12,10 +12,16 @@ function App() {
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = async (evt) => {
+    reader.onload = (evt) => {
       try {
         const xml = evt.target.result;
-        const json = await parseStringPromise(xml, { explicitArray: false });
+        const parser = new XMLParser({
+          ignoreAttributes: false,
+          attributeNamePrefix: '',
+          allowBooleanAttributes: true,
+        });
+        const json = parser.parse(xml);
+
         const items = json.currentstate?.systemitems?.item?.subitems?.item || [];
 
         const devices = [];
