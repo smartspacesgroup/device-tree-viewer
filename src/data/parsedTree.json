@@ -1,0 +1,1293 @@
+[
+  {
+    "name": "206-15 Shearwater Ct W - The Madlins",
+    "children": [
+      {
+        "name": "Scheduler"
+      },
+      {
+        "name": "Update Manager"
+      },
+      {
+        "name": "Remote Access"
+      },
+      {
+        "name": "System Diagnostics"
+      },
+      {
+        "name": "Home",
+        "children": [
+          {
+            "name": "House",
+            "children": [
+              {
+                "name": "First",
+                "children": [
+                  {
+                    "name": "Cloud Services",
+                    "children": [
+                      {
+                        "name": "Stations",
+                        "children": [
+                          {
+                            "name": "Stations"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "My Music",
+                        "children": [
+                          {
+                            "name": "My Music"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "TuneIn",
+                        "children": [
+                          {
+                            "name": "TuneIn"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "My Movies",
+                        "children": [
+                          {
+                            "name": "My Movies"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Channels",
+                        "children": [
+                          {
+                            "name": "Channels"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Pandora",
+                        "children": [
+                          {
+                            "name": "Pandora"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "TIDAL",
+                        "children": [
+                          {
+                            "name": "TIDAL"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "ShairBridge",
+                        "children": [
+                          {
+                            "name": "Jason Airplay"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "iHeartRadio",
+                        "children": [
+                          {
+                            "name": "iHeartRadio"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "SiriusXM",
+                        "children": [
+                          {
+                            "name": "SiriusXM"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Napster Replacement",
+                        "children": [
+                          {
+                            "name": "Napster"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Amazon Music",
+                        "children": [
+                          {
+                            "name": "Amazon Music"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Digital Media"
+                      },
+                      {
+                        "name": "Hue Bridge (OS2.9+)"
+                      },
+                      {
+                        "name": "Remote Hub"
+                      },
+                      {
+                        "name": "Network (Works With Sonos Certified)",
+                        "children": [
+                          {
+                            "name": "Sonos Network"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "DriverCentral Cloud"
+                      },
+                      {
+                        "name": "BOND (Bridge Driver)"
+                      },
+                      {
+                        "name": "Battery Agent",
+                        "children": [
+                          {
+                            "name": "Battery Agent"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Ecobee Network",
+                        "children": [
+                          {
+                            "name": "Ecobee Network"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Apple Bridge"
+                      },
+                      {
+                        "name": "All Music for Ovation (Summit-N)",
+                        "children": [
+                          {
+                            "name": "iTunes"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "LiNK"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Under Stairs AV Rack",
+                    "children": [
+                      {
+                        "name": "Control4 EA-5",
+                        "children": [
+                          {
+                            "name": "EA-5"
+                          },
+                          {
+                            "name": "UIDevice"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Generic Mass Storage"
+                      },
+                      {
+                        "name": "Snapshot"
+                      },
+                      {
+                        "name": "Voice Scene"
+                      },
+                      {
+                        "name": "Mockupancy Occupancy Simulation (OS2.9+)",
+                        "children": [
+                          {
+                            "name": "Mockupancy"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Add Music",
+                        "children": [
+                          {
+                            "name": "Add Music"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Wattbox - Rack"
+                      },
+                      {
+                        "name": "Ovation Network (Summit-N)",
+                        "children": [
+                          {
+                            "name": "Ovation Network"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Ovation Player (Summit-N)",
+                        "children": [
+                          {
+                            "name": "Ovation Player"
+                          },
+                          {
+                            "name": "Player Endpoint"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Foyer",
+                    "children": [
+                      {
+                        "name": "Wireless Dimmer",
+                        "children": [
+                          {
+                            "name": "Vestibule"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Wireless Dimmer",
+                        "children": [
+                          {
+                            "name": "Closet"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Front Door"
+                      },
+                      {
+                        "name": "Door Lock"
+                      },
+                      {
+                        "name": "Wireless Dimmer",
+                        "children": [
+                          {
+                            "name": "Entry"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Powder Room",
+                    "children": [
+                      {
+                        "name": "Wireless Switch",
+                        "children": [
+                          {
+                            "name": "Powder Room Light"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Wireless Switch",
+                        "children": [
+                          {
+                            "name": "Powder Room Sconces"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Motion Sensor",
+                        "children": [
+                          {
+                            "name": "Motion Sensor"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Occupancy Driver",
+                        "children": [
+                          {
+                            "name": "Powder Room Occupancy"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Playroom",
+                    "children": [
+                      {
+                        "name": "Wireless Dimmer",
+                        "children": [
+                          {
+                            "name": "Playroom Ceiling"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Wireless Dimmer",
+                        "children": [
+                          {
+                            "name": "Playroom Stairs"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Plug-In Outlet Dimmer",
+                        "children": [
+                          {
+                            "name": "Piano Lamp"
+                          },
+                          {
+                            "name": "Piano Lamp Button"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Living Room",
+                    "children": [
+                      {
+                        "name": "Control4 EA-3",
+                        "children": [
+                          {
+                            "name": "EA-3"
+                          },
+                          {
+                            "name": "UIDevice 3"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Room Control"
+                      },
+                      {
+                        "name": "Cable TV"
+                      },
+                      {
+                        "name": "UHF/VHF"
+                      },
+                      {
+                        "name": "Card Access Wireless Motion Sensor",
+                        "children": [
+                          {
+                            "name": "Motion Sensor"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Patio Door Contact Sensor"
+                      },
+                      {
+                        "name": "Door Contact Sensor"
+                      },
+                      {
+                        "name": "Wireless Dimmer",
+                        "children": [
+                          {
+                            "name": "Living Room Sconces"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Axxess Universal Dimmer",
+                        "children": [
+                          {
+                            "name": "Floor Lamp"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "3-Button Keypad"
+                      },
+                      {
+                        "name": "Plug-In Outlet Dimmer",
+                        "children": [
+                          {
+                            "name": "Leaning Table"
+                          },
+                          {
+                            "name": "Leaning Table Button"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Integra DRX-5.2",
+                        "children": [
+                          {
+                            "name": "Integra DRX-5.2"
+                          },
+                          {
+                            "name": "AM/FM Tuner"
+                          },
+                          {
+                            "name": "Integra NET"
+                          },
+                          {
+                            "name": "Integra USB (Front)"
+                          },
+                          {
+                            "name": "Integra Bluetooth"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "FM Radio"
+                      },
+                      {
+                        "name": "AM Radio"
+                      },
+                      {
+                        "name": "JVC DLA-RS1",
+                        "children": [
+                          {
+                            "name": "Projector"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Motorized Screen"
+                      },
+                      {
+                        "name": "Microsoft XBOX One IR",
+                        "children": [
+                          {
+                            "name": "XBOX Series X"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Console PE Series PDU"
+                      },
+                      {
+                        "name": "Scenario - Experience Button",
+                        "children": [
+                          {
+                            "name": "Restart Internet"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Scenario - Experience Button",
+                        "children": [
+                          {
+                            "name": "Restart ATV"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Nintendo Switch",
+                        "children": [
+                          {
+                            "name": "Nintendo Switch"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Scenario - Experience Button Stereo Dolby",
+                        "children": [
+                          {
+                            "name": "Stereo Mode"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "PC - UI Button",
+                        "children": [
+                          {
+                            "name": "Portal"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "PS4 - UI Button",
+                        "children": [
+                          {
+                            "name": "Sony PS5"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Occupancy Driver",
+                        "children": [
+                          {
+                            "name": "Living Room Occupancy"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Ecobee Thermostat",
+                        "children": [
+                          {
+                            "name": "First Floor"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Scenario - Experience Button",
+                        "children": [
+                          {
+                            "name": "Find Remote"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Apple TV (Gen 4 and 4K) [IP]",
+                        "children": [
+                          {
+                            "name": "Apple TV"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "BINARY B-260 4K HDR Switch 4x1",
+                        "children": [
+                          {
+                            "name": "BINARY B-260 4K HDR Switch 4x1"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "LG OLED65C3PUA",
+                        "children": [
+                          {
+                            "name": "LG TV"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Plug-In Outlet Dimmer",
+                        "children": [
+                          {
+                            "name": "Console"
+                          },
+                          {
+                            "name": "Console Button"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Halo Remote",
+                        "children": [
+                          {
+                            "name": "Living Room Halo Remote"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Dining",
+                    "children": [
+                      {
+                        "name": "Keypad Dimmer",
+                        "children": [
+                          {
+                            "name": "Chandelier"
+                          },
+                          {
+                            "name": "Dining KP"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Credenza Wireless Outlet Dimmer"
+                      },
+                      {
+                        "name": "Mirror Right"
+                      },
+                      {
+                        "name": "Mirror Left"
+                      },
+                      {
+                        "name": "Plug-In Outlet Dimmer",
+                        "children": [
+                          {
+                            "name": "Apothecary"
+                          },
+                          {
+                            "name": "Apothecary Button"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Plug-In Outlet Dimmer",
+                        "children": [
+                          {
+                            "name": "Wine Cabinet"
+                          },
+                          {
+                            "name": "Wine Cabinet Button"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Landing",
+                    "children": [
+                      {
+                        "name": "3-Button Keypad"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Kitchen",
+                    "children": [
+                      {
+                        "name": "Room Control"
+                      },
+                      {
+                        "name": "Keypad Dimmer",
+                        "children": [
+                          {
+                            "name": "Counter"
+                          },
+                          {
+                            "name": "Keypad 5"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Keypad Dimmer",
+                        "children": [
+                          {
+                            "name": "Recessed"
+                          },
+                          {
+                            "name": "Keypad 3"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Keypad Dimmer",
+                        "children": [
+                          {
+                            "name": "Island"
+                          },
+                          {
+                            "name": "Keypad 4"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Triad One",
+                        "children": [
+                          {
+                            "name": "Triad One"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Kitchen"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Deck",
+                    "children": [
+                      {
+                        "name": "Wireless Switch",
+                        "children": [
+                          {
+                            "name": "Deck Light"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Outdoor Plug-In Outlet Switch",
+                        "children": [
+                          {
+                            "name": "Outdoor Switch"
+                          },
+                          {
+                            "name": "Outdoor Switch Button"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Fireplace",
+                        "children": [
+                          {
+                            "name": "Camp Lights"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Help",
+                    "children": [
+                      {
+                        "name": "Help Page",
+                        "children": [
+                          {
+                            "name": "Help Page"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Helpful Videos",
+                        "children": [
+                          {
+                            "name": "Helpful Videos"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Contact Us",
+                        "children": [
+                          {
+                            "name": "Contact Us"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Second",
+                "children": [
+                  {
+                    "name": "Laundry",
+                    "children": [
+                      {
+                        "name": "Adaptive Phase Dimmer",
+                        "children": [
+                          {
+                            "name": "Laundry"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Wattbox"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Foster's Bedroom",
+                    "children": [
+                      {
+                        "name": "Room Control"
+                      },
+                      {
+                        "name": "ShairBridge",
+                        "children": [
+                          {
+                            "name": "Foster's Airplay"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Triad One",
+                        "children": [
+                          {
+                            "name": "Triad One"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Philips Hue Light (OS 3.3.0+)",
+                        "children": [
+                          {
+                            "name": "Fosters Bed"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Philips Hue Light (OS 3.3.0+)",
+                        "children": [
+                          {
+                            "name": "Airplane Desk"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Philips Hue Light (OS 3.3.0+)",
+                        "children": [
+                          {
+                            "name": "Airplane Toys"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Philips Hue Light (OS 3.3.0+)",
+                        "children": [
+                          {
+                            "name": "Orange Light"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Philips Hue Light (OS 3.3.0+)",
+                        "children": [
+                          {
+                            "name": "Silver Light"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Ceci's Bedroom",
+                    "children": [
+                      {
+                        "name": "ShairBridge",
+                        "children": [
+                          {
+                            "name": "Ceci's Airplay"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Triad One",
+                        "children": [
+                          {
+                            "name": "Triad One"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "T3 7\" Tabletop Touch Screen",
+                        "children": [
+                          {
+                            "name": "Ceci's Bedroom"
+                          },
+                          {
+                            "name": "Intercom 3"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Upstairs"
+                      },
+                      {
+                        "name": "Axxess Universal Dimmer",
+                        "children": [
+                          {
+                            "name": "Bedside Light"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "BOND (Fan Driver) (6 Speed)",
+                        "children": [
+                          {
+                            "name": "Fan"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "BOND (Light Driver)",
+                        "children": [
+                          {
+                            "name": "Fan Light"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Spotify Connect",
+                        "children": [
+                          {
+                            "name": "Spotify Connect"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Loft",
+                    "children": [
+                      {
+                        "name": "Keypad Dimmer",
+                        "children": [
+                          {
+                            "name": "Loft Ceiling"
+                          },
+                          {
+                            "name": "Keypad 2"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Wireless Outlet Dimmer"
+                      },
+                      {
+                        "name": "Samsung UN40C7000",
+                        "children": [
+                          {
+                            "name": "Samsung UN40C7000"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Sonos (Works With Sonos Certified)",
+                        "children": [
+                          {
+                            "name": "Loft Sonos"
+                          },
+                          {
+                            "name": "Loft Sonos Connections"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "C4-Z2IO"
+                      },
+                      {
+                        "name": "Neeo Remote"
+                      },
+                      {
+                        "name": "Apple TV (Gen 4 and 4K) [IP]",
+                        "children": [
+                          {
+                            "name": "Apple TV"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Plug-In Outlet Dimmer",
+                        "children": [
+                          {
+                            "name": "Lamps"
+                          },
+                          {
+                            "name": "Lamps Button"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Master Bedroom",
+                    "children": [
+                      {
+                        "name": "Control4 EA-1",
+                        "children": [
+                          {
+                            "name": "EA-1"
+                          },
+                          {
+                            "name": "UIDevice 2"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "eSATA File Storage"
+                      },
+                      {
+                        "name": "Wireless Dimmer",
+                        "children": [
+                          {
+                            "name": "Master Bed Closets"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Keypad Dimmer",
+                        "children": [
+                          {
+                            "name": "Master Ceiling"
+                          },
+                          {
+                            "name": "Keypad"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Wireless Dimmer",
+                        "children": [
+                          {
+                            "name": "Landing"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Wireless Dimmer",
+                        "children": [
+                          {
+                            "name": "Master Bed Hallway"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "ShairBridge",
+                        "children": [
+                          {
+                            "name": "C4 Master Bed Airplay"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Residential Thermostat V2",
+                        "children": [
+                          {
+                            "name": "Second Floor"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Room Control"
+                      },
+                      {
+                        "name": "Sonos (Works With Sonos Certified)",
+                        "children": [
+                          {
+                            "name": "Master Bedroom Sonos"
+                          },
+                          {
+                            "name": "Master Bedroom Sonos Connections"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Axxess Lamp Dimmer",
+                        "children": [
+                          {
+                            "name": "Jason Bedside"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Plug-In Outlet Dimmer",
+                        "children": [
+                          {
+                            "name": "Dresser Lamp"
+                          },
+                          {
+                            "name": "Dresser Lamp Button"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Scenario - Experience Button",
+                        "children": [
+                          {
+                            "name": "ATV"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Scenario - Experience Button",
+                        "children": [
+                          {
+                            "name": "Find Remote"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "LG OLED55C8PUA",
+                        "children": [
+                          {
+                            "name": "LG Television"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Apple TV (Gen 4 and 4K) [IP]",
+                        "children": [
+                          {
+                            "name": "Apple TV"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "C4-Z2IO"
+                      },
+                      {
+                        "name": "Axxess Lamp Dimmer",
+                        "children": [
+                          {
+                            "name": "Li Bedside"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Master Bedroom Neeo Remote"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Master Bathroom",
+                    "children": [
+                      {
+                        "name": "Wireless Dimmer",
+                        "children": [
+                          {
+                            "name": "Master Bath Mirror"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Wireless Switch",
+                        "children": [
+                          {
+                            "name": "Master Bath Shower"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Wireless Dimmer",
+                        "children": [
+                          {
+                            "name": "Master Bath Celing"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Curtain Motion Sensor",
+                        "children": [
+                          {
+                            "name": "Master Bathroom"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Occupancy Driver",
+                        "children": [
+                          {
+                            "name": "Master Bathroom Occupancy"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Kids Bathroom",
+                    "children": [
+                      {
+                        "name": "Kids Bathroom - Control"
+                      },
+                      {
+                        "name": "Adaptive Phase Dimmer",
+                        "children": [
+                          {
+                            "name": "Vanity"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "WarmUp Comms"
+                      },
+                      {
+                        "name": "WarmUp TStat V2",
+                        "children": [
+                          {
+                            "name": "Floor Heating"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Adaptive Phase Dimmer",
+                        "children": [
+                          {
+                            "name": "Ceiling"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Switch",
+                        "children": [
+                          {
+                            "name": "Fan"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Triad One",
+                        "children": [
+                          {
+                            "name": "Triad One"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Email Notification"
+      },
+      {
+        "name": "Macros"
+      },
+      {
+        "name": "Custom Buttons"
+      },
+      {
+        "name": "Announcement Agent"
+      },
+      {
+        "name": "Timer Agent"
+      },
+      {
+        "name": "Advanced Lighting"
+      },
+      {
+        "name": "Push Notification"
+      },
+      {
+        "name": "Backup"
+      },
+      {
+        "name": "Z-Wave"
+      },
+      {
+        "name": "Driver Update"
+      },
+      {
+        "name": "Wakeup/Goodnight"
+      },
+      {
+        "name": "Communication"
+      },
+      {
+        "name": "Screen Saver"
+      },
+      {
+        "name": "Media Scenes"
+      },
+      {
+        "name": "Z-Wave Scenes"
+      },
+      {
+        "name": "Identity"
+      },
+      {
+        "name": "History"
+      },
+      {
+        "name": "UI Configuration"
+      },
+      {
+        "name": "Media Sessions"
+      },
+      {
+        "name": "Color"
+      },
+      {
+        "name": "Voice Coordinator"
+      },
+      {
+        "name": "Recently Played Manager"
+      },
+      {
+        "name": "Halo Remote Hub"
+      },
+      {
+        "name": "Navigation"
+      },
+      {
+        "name": "Data Analytics Agent"
+      },
+      {
+        "name": "Daylight"
+      }
+    ]
+  }
+]
