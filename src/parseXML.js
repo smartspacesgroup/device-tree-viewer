@@ -1,63 +1,59 @@
 
-import { XMLParser } from "fast-xml-parser";
+export function extractDevicesFromXML(xml) {
+  const output = [];
+  const deviceMap = {};
 
-export function parseXML(xmlString) {
-  const parser = new XMLParser({
-    ignoreAttributes: false,
-    attributeNamePrefix: "@_",
-    allowBooleanAttributes: true,
-    parseAttributeValue: true,
-    parseTagValue: true,
-  });
-
-  const result = parser.parse(xmlString);
-
-  const devices = [];
-  const metadata = result?.currentstate?.devices?.device ?? {};
-  const systemItems = result?.currentstate?.systemitems?.item ?? [];
-
-  const indexMap = {};
-  Object.keys(metadata).forEach((key) => {
-    const cleanKey = key.replace(":index:", "");
-    indexMap[cleanKey] = metadata[key];
-  });
-
-  const traverse = (items, floor = "", room = "") => {
-    if (!Array.isArray(items)) return;
-
-    items.forEach((item) => {
-      const type = item.type;
-      const name = item.name;
-      const id = item.id;
-
-      if (type === "3") floor = name;
-      else if (type === "8") room = name;
-
-      if (type === "6" || type === "7") {
-        const deviceId = item.deviceid;
-        const meta = indexMap[deviceId] || {};
-        devices.push({
-          floor,
-          room,
-          name: meta.name || name || "Unknown",
-          manufacturer: meta.manufacturer || "Unknown",
-          model: meta.model || "Unknown"
-        });
-      }
-
-      if (item.subitems?.item) {
-        const children = Array.isArray(item.subitems.item) ? item.subitems.item : [item.subitems.item];
-        traverse(children, floor, room);
-      }
-    });
-  };
-
-  systemItems.forEach((topItem) => {
-    if (topItem.subitems?.item) {
-      const children = Array.isArray(topItem.subitems.item) ? topItem.subitems.item : [topItem.subitems.item];
-      traverse(children);
+  // Flatten the device list
+  const deviceEntries = xml?.project?.devices?.[0]?.device || [];
+  deviceEntries.forEach((device) => {
+    const id = device?.$.id;
+    if (id) {
+      deviceMap[id] = {
+        name: device.name?.[0] || "Unknown",
+        manufacturer: device.manufacturer?.[0] || "Unknown",
+        model: device.model?.[0] || "Unknown",
+      };
     }
   });
 
-  return devices;
+  // Recursive parser for rooms/floors
+  function traverse(items, floor = "", room = "") {
+    if (!items) return;
+
+    if (!Array.isArray(items)) {
+      items = [items];
+    }
+
+    items.forEach((item) => {
+      const type = item.type?.[0];
+      const name = item.name?.[0];
+
+      if (type === "2") floor = name;
+      else if (type === "8") room = name;
+
+      const deviceId = item.deviceid?.[0];
+      const deviceData = deviceId ? deviceMap[deviceId] : null;
+
+      if (deviceData) {
+        output.push({
+          floor,
+          room,
+          name: deviceData.name,
+          manufacturer: deviceData.manufacturer,
+          model: deviceData.model,
+        });
+      }
+
+      const sub = item?.subitems?.[0]?.item;
+      if (sub) traverse(sub, floor, room);
+    });
+  }
+
+  const rootItems = xml?.project?.systemitems?.[0]?.item || [];
+  rootItems.forEach((item) => {
+    const sub = item?.subitems?.[0]?.item;
+    if (sub) traverse(sub);
+  });
+
+  return output;
 }
