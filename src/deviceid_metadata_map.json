@@ -1,0 +1,366 @@
+{
+  "1035": {
+    "manufacturer": "Axxess",
+    "model": "LDP-C4ZB-H2-21"
+  },
+  "1088": {
+    "manufacturer": "Control4",
+    "model": "C4-THERM"
+  },
+  "1244": {
+    "manufacturer": "Microsoft",
+    "model": "XBOX One"
+  },
+  "1499": {
+    "manufacturer": "Control4",
+    "model": "C4-APD120"
+  },
+  "1513": {
+    "manufacturer": "Philips",
+    "model": "Single Lamp Brightness"
+  },
+  "1515": {
+    "manufacturer": "Philips",
+    "model": "Single Lamp Brightness"
+  },
+  "1626": {
+    "manufacturer": "Control4",
+    "model": "C4-KD120"
+  },
+  "1629": {
+    "manufacturer": "Control4",
+    "model": "LDZ-101"
+  },
+  "1651": {
+    "manufacturer": "Control4",
+    "model": "C4-KD120"
+  },
+  "1655": {
+    "manufacturer": "Control4",
+    "model": "C4-KD120"
+  },
+  "1666": {
+    "manufacturer": "LG",
+    "model": "OLED55C8PUA"
+  },
+  "1686": {
+    "manufacturer": "Apple",
+    "model": "Apple TV (Gen 4 and 4K) [IP]"
+  },
+  "1690": {
+    "manufacturer": "Samsung",
+    "model": "UN46F7500AFXZA"
+  },
+  "1701": {
+    "manufacturer": "Apple",
+    "model": "Apple TV (Gen 4 and 4K) [IP]"
+  },
+  "1716": {
+    "manufacturer": "Integra",
+    "model": "DRX-5.2"
+  },
+  "1738": {
+    "manufacturer": "Axxess",
+    "model": "Generic Dimmer"
+  },
+  "1753": {
+    "manufacturer": "Apple",
+    "model": "Apple TV (Gen 4 and 4K) [IP]"
+  },
+  "1755": {
+    "manufacturer": "Samsung",
+    "model": "UN40C7000 [IR]"
+  },
+  "1760": {
+    "manufacturer": "Nintendo",
+    "model": "Switch"
+  },
+  "1783": {
+    "manufacturer": "Axxess",
+    "model": "Generic Dimmer"
+  },
+  "1818": {
+    "manufacturer": "Control4",
+    "model": "C4-KD120"
+  },
+  "1821": {
+    "manufacturer": "Google Nest",
+    "model": "Google Nest Thermostat"
+  },
+  "1844": {
+    "manufacturer": "Philips",
+    "model": "Single Lamp Full Color"
+  },
+  "1847": {
+    "manufacturer": "Philips",
+    "model": "Single Lamp Full Color"
+  },
+  "1854": {
+    "manufacturer": "WarmUp",
+    "model": "HeatTStat"
+  },
+  "1894": {
+    "manufacturer": "Control4",
+    "model": "C4-APD120"
+  },
+  "1896": {
+    "manufacturer": "Control4",
+    "model": "C4-SW120277"
+  },
+  "1911": {
+    "manufacturer": "Control4",
+    "model": "C4-V-OOSW120"
+  },
+  "1934": {
+    "manufacturer": "Control4",
+    "model": "C4-V-ROSW120"
+  },
+  "1936": {
+    "manufacturer": "Control4",
+    "model": "C4-4SF120"
+  },
+  "1945": {
+    "manufacturer": "Control4",
+    "model": "C4-APD120"
+  },
+  "1947": {
+    "manufacturer": "Philips",
+    "model": "Single Lamp Full Color"
+  },
+  "1953": {
+    "manufacturer": "Philips",
+    "model": "Philips Hue"
+  },
+  "1955": {
+    "manufacturer": "Philips",
+    "model": "Philips Hue"
+  },
+  "1957": {
+    "manufacturer": "Philips",
+    "model": "Philips Hue"
+  },
+  "1959": {
+    "manufacturer": "Philips",
+    "model": "Philips Hue"
+  },
+  "1961": {
+    "manufacturer": "Philips",
+    "model": "Philips Hue"
+  },
+  "1963": {
+    "manufacturer": "Axxess",
+    "model": "Lamp Dimmer"
+  },
+  "1965": {
+    "manufacturer": "Axxess",
+    "model": "Lamp Dimmer"
+  },
+  "1970": {
+    "manufacturer": "Control4",
+    "model": "C4-KD120"
+  },
+  "1975": {
+    "manufacturer": "BOND",
+    "model": "BOND - Fan (6 Speed)"
+  },
+  "1977": {
+    "manufacturer": "BOND",
+    "model": "BOND - Light Dimmer"
+  },
+  "1979": {
+    "manufacturer": "BOND",
+    "model": "BOND - Light"
+  },
+  "1982": {
+    "manufacturer": "Control4",
+    "model": "C4-V-ODIM120"
+  },
+  "1984": {
+    "manufacturer": "Control4",
+    "model": "C4-V-ODIM120"
+  },
+  "1987": {
+    "manufacturer": "Control4",
+    "model": "C4-V-ODIM120"
+  },
+  "1991": {
+    "manufacturer": "Control4",
+    "model": "C4-V-ODIM120"
+  },
+  "1993": {
+    "manufacturer": "Control4",
+    "model": "C4-V-ODIM120"
+  },
+  "2000": {
+    "manufacturer": "Chowmain",
+    "model": "Generic IR Thermostat"
+  },
+  "2037": {
+    "manufacturer": "Ecobee",
+    "model": "Model 3+"
+  },
+  "2056": {
+    "manufacturer": "Control4",
+    "model": "Panel-Dimmable"
+  },
+  "2070": {
+    "manufacturer": "LG",
+    "model": "OLED65C3PUA"
+  },
+  "2079": {
+    "manufacturer": "Apple",
+    "model": "Apple TV (Gen 4 and 4K) [IP]"
+  },
+  "2082": {
+    "manufacturer": "Apple",
+    "model": "Apple TV (Gen 4 and 4K) [IP]"
+  },
+  "2084": {
+    "manufacturer": "Apple",
+    "model": "Apple TV (Gen 4 and 4K) [IP]"
+  },
+  "2086": {
+    "manufacturer": "Control4",
+    "model": "Outlet-NonDimmable"
+  },
+  "2089": {
+    "manufacturer": "Control4",
+    "model": "C4-V-OOSW120"
+  },
+  "2101": {
+    "manufacturer": "Axxess",
+    "model": "Lamp Dimmer"
+  },
+  "2152": {
+    "manufacturer": "Apple",
+    "model": "Apple TV (Gen 4 and 4K) [IP]"
+  },
+  "2160": {
+    "manufacturer": "LG",
+    "model": "WebOS"
+  },
+  "2162": {
+    "manufacturer": "LG",
+    "model": "WebOS"
+  },
+  "2164": {
+    "manufacturer": "LG",
+    "model": "WebOS"
+  },
+  "2166": {
+    "manufacturer": "LG",
+    "model": "WebOS"
+  },
+  "2168": {
+    "manufacturer": "LG",
+    "model": "OLED65C3PUA"
+  },
+  "2170": {
+    "manufacturer": "LG",
+    "model": "WebOS"
+  },
+  "2174": {
+    "manufacturer": "Control4",
+    "model": "C4-V-ODIM120"
+  },
+  "2176": {
+    "manufacturer": "Control4",
+    "model": "C4-V-ODIM120"
+  },
+  "2179": {
+    "manufacturer": "Control4",
+    "model": "C4-SW120277, C4-SDSW240, C4-SW240"
+  },
+  "2181": {
+    "manufacturer": "LG",
+    "model": "OLED65C3PUA"
+  },
+  "224": {
+    "manufacturer": "Control4",
+    "model": "LSZ-101"
+  },
+  "226": {
+    "manufacturer": "Control4",
+    "model": "LSZ-101"
+  },
+  "343": {
+    "manufacturer": "Control4",
+    "model": "LDZ-102"
+  },
+  "347": {
+    "manufacturer": "Control4",
+    "model": "LDZ-102"
+  },
+  "351": {
+    "manufacturer": "Control4",
+    "model": "LDZ-102"
+  },
+  "354": {
+    "manufacturer": "Control4",
+    "model": "LDZ-102"
+  },
+  "356": {
+    "manufacturer": "Control4",
+    "model": "LSZ-101"
+  },
+  "76": {
+    "manufacturer": "Control4",
+    "model": "LDZ-102"
+  },
+  "78": {
+    "manufacturer": "Control4",
+    "model": "LDZ-102"
+  },
+  "80": {
+    "manufacturer": "Control4",
+    "model": "LDZ-102"
+  },
+  "802": {
+    "manufacturer": "Control4",
+    "model": "LDZ-102"
+  },
+  "814": {
+    "manufacturer": "Control4",
+    "model": "LDZ-102"
+  },
+  "816": {
+    "manufacturer": "Control4",
+    "model": "C4-KD120"
+  },
+  "889": {
+    "manufacturer": "Control4",
+    "model": "LSZ-101"
+  },
+  "964": {
+    "manufacturer": "Axxess",
+    "model": "LDP-C4ZB-H2-21"
+  },
+  "976": {
+    "manufacturer": "Control4",
+    "model": "C4-KD120"
+  },
+  "979": {
+    "manufacturer": "Control4",
+    "model": "LDZ-101"
+  },
+  "2006": {
+    "manufacturer": "Control4",
+    "model": "Halo Remote"
+  },
+  "2060": {
+    "manufacturer": "Control4",
+    "model": "Halo Remote"
+  },
+  "2062": {
+    "manufacturer": "Control4",
+    "model": "Halo Remote"
+  },
+  "2186": {
+    "manufacturer": "Control4",
+    "model": "Halo Remote"
+  },
+  "2190": {
+    "manufacturer": "Control4",
+    "model": "Halo Remote"
+  }
+}
