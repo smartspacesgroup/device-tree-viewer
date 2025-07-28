@@ -10,52 +10,6 @@ export default function DeviceTreeUploader() {
 
     const handleFileUpload = (event) => {
       const file = event.target.files[0];
-      if (!file) return;
-
-      setDevices([]);
-      setError("");
-      setUploadProgress(0);
-      setParsingProgress(0);
-
-      const reader = new FileReader();
-      reader.onloadstart = () => setUploadProgress(10);
-      reader.onprogress = (e) => {
-        if (e.lengthComputable) {
-          setUploadProgress(Math.round((e.loaded / e.total) * 100));
-      reader.onload = async (e) => {
-        setUploadProgress(100);
-        try {
-          setParsingProgress(10);
-          const { parseXML } = await import("./parseXML.js");
-          const result = parseXML(e.target.result);
-          setParsingProgress(50);
-          const parsedDevices = extractDevicesFromXML(result);
-          setParsingProgress(100);
-          setDevices(parsedDevices);
-      console.error("❌ Failed to parse XML:", err);
-          setError("Failed to parse XML: " + err.message);
-          setParsingProgress(0);
-      reader.onerror = () => {
-        setError("Failed to read file.");
-      reader.readAsText(file);
-
-  
-  
-  
-    const extractDevicesFromXML = (xml) => {
-      const output = [];
-
-      // Step 1: Grab device metadata map
-      const deviceMeta = xml?.currentstate?.devicedata?.[0]?.index || xml?.currentstate?.devicedata?.index || {};
-
-      const getDeviceMeta = (id) => {
-        const key = `:index:${id}`;
-        const meta = deviceMeta?.[key];
-        return {
-          manufacturer: meta?.manufacturer || "Unknown",
-          model: meta?.model || "Unknown",
-          name: meta?.name || "Unknown",
-
       const traverse = (items, floor = "", room = "") => {
         if (!Array.isArray(items)) return;
 
@@ -186,3 +140,50 @@ export default function DeviceTreeUploader() {
     );
 
 }
+
+      if (!file) return;
+
+      setDevices([]);
+      setError("");
+      setUploadProgress(0);
+      setParsingProgress(0);
+
+      const reader = new FileReader();
+      reader.onloadstart = () => setUploadProgress(10);
+      reader.onprogress = (e) => {
+        if (e.lengthComputable) {
+          setUploadProgress(Math.round((e.loaded / e.total) * 100));
+      reader.onload = async (e) => {
+        setUploadProgress(100);
+        try {
+          setParsingProgress(10);
+          const { parseXML } = await import("./parseXML.js");
+          const result = parseXML(e.target.result);
+          setParsingProgress(50);
+          const parsedDevices = extractDevicesFromXML(result);
+          setParsingProgress(100);
+          setDevices(parsedDevices);
+      console.error("❌ Failed to parse XML:", err);
+          setError("Failed to parse XML: " + err.message);
+          setParsingProgress(0);
+      reader.onerror = () => {
+        setError("Failed to read file.");
+      reader.readAsText(file);
+
+  
+  
+  
+    const extractDevicesFromXML = (xml) => {
+      const output = [];
+
+      // Step 1: Grab device metadata map
+      const deviceMeta = xml?.currentstate?.devicedata?.[0]?.index || xml?.currentstate?.devicedata?.index || {};
+
+      const getDeviceMeta = (id) => {
+        const key = `:index:${id}`;
+        const meta = deviceMeta?.[key];
+        return {
+          manufacturer: meta?.manufacturer || "Unknown",
+          model: meta?.model || "Unknown",
+          name: meta?.name || "Unknown",
+
